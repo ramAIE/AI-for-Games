@@ -2,7 +2,9 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
+#include <vector>
 
+class Agent;
 class AI_N_GamesApp : public aie::Application {
 public:
 
@@ -19,4 +21,7 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
+	
+	std::vector<Agent*> m_agents;
+
 };
