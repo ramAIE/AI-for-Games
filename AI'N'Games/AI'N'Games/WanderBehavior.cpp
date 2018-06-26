@@ -19,9 +19,6 @@ void WanderBehavior::update(Agent * agent, float deltaTime)
 	Vector2 circleCenter = agent->velocity;
 	circleCenter.normalise();
 	circleCenter = circleCenter * m_wanderRadius;
-
-
-
 }
 
 

@@ -30,6 +30,15 @@
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderBehavior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Edge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI_N_GamesApp.h">
@@ -45,6 +54,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Edge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
