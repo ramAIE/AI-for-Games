@@ -7,7 +7,8 @@ class Node
 {
 public:
 	Node();
-	void SetConnection(Node* node, Edge* edge);
+	void SetConnection(Edge* edge);
+	std::vector<Edge*> GetConnections();
 	Vector2 GetPosition();
 	void SetPosition(Vector2 pos);
 	~Node();

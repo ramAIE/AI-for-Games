@@ -7,9 +7,14 @@ Node::Node()
 	position = Vector2(0, 0);
 }
 
-void Node::SetConnection(Node * node, Edge * edge)
+void Node::SetConnection(Edge * edge)
 {
-	node->connections.push_back(edge);
+	connections.push_back(edge);
+}
+
+std::vector<Edge*> Node::GetConnections()
+{
+	return connections;
 }
 
 Vector2 Node::GetPosition()
