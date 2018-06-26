@@ -4,14 +4,17 @@ class Edge
 {
 public:
 	Edge();
-	Node* GetNodeA();
+	// Set and Get Node B
 	Node* GetNodeB();
-	void SetNodeA(Node* node);
 	void SetNodeB(Node* node);
+	// Set and Get cost
+	float GetCost();
+	void SetCost(float cost);
+
 	~Edge();
 private:
-	Node* nodeA;
 	Node* nodeB;
+	float cost;
 
 };
 

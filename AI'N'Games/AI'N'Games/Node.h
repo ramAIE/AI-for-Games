@@ -7,14 +7,29 @@ class Node
 {
 public:
 	Node();
-	void SetConnection(Edge* edge);
+	// connect nodes
+	void SetConnection(Node * a, Node * b, float cost);
 	std::vector<Edge*> GetConnections();
+	// position of the node
 	Vector2 GetPosition();
 	void SetPosition(Vector2 pos);
+	// check if the node has been visited
+	void Visited(bool isVisited);
+	bool CheckVisited();
+	// Get the parent of the node
+	void SetParent(Node* parent);
+	Node* GetParent();
+	// GScore for the Node
+	void SetGScore(float score);
+	float GetGScore();
+
 	~Node();
 
 private:
-	Vector2 position;
 	std::vector<Edge*> connections;
+	Vector2 position;
+	Node* parent;
+	bool visited;
+	float gScore;
 };
 

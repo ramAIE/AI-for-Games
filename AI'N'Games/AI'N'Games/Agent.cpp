@@ -47,4 +47,6 @@ void Agent::AddBehavior(IBehavior * behavior)
 Agent::~Agent()
 {
 	delete texture;
+	for (auto behavior : m_behaviors)
+		delete behavior;
 }
