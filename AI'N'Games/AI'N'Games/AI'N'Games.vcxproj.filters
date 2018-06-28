@@ -39,6 +39,18 @@
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Edge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Decision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\BooleanDecision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\SeekDecision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderDecision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI_N_GamesApp.h">
@@ -63,6 +75,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Edge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Decision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\BooleanDecision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\SeekDecision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderDecision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

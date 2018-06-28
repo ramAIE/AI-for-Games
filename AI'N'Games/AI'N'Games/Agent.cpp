@@ -22,10 +22,7 @@ void Agent::update(float deltaTime)
 	position = position + velocity * deltaTime;
 	acceleration = Vector2(0, 0);
 
-	for (auto itr = m_behaviors.begin(); itr != m_behaviors.end(); ++itr)
-	{
-		(*itr)->update(this, deltaTime);
-	}
+	m_behavior->update(this, deltaTime);
 }
 
 void Agent::draw(aie::Renderer2D * renderer)
@@ -40,13 +37,12 @@ void Agent::AddForce(Vector2 force)
 
 void Agent::AddBehavior(IBehavior * behavior)
 {
-	m_behaviors.push_back(behavior);
+	m_behavior = behavior;
 }
 
 
 Agent::~Agent()
 {
 	delete texture;
-	for (auto behavior : m_behaviors)
-		delete behavior;
+	delete m_behavior;
 }

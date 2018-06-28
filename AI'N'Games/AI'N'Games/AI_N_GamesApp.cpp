@@ -6,6 +6,9 @@
 #include <Vector2.h>
 #include "KeyboardController.h"
 #include "Graph.h"
+#include "BooleanDecision.h"
+#include "SeekDecision.h"
+#include "WanderDecision.h"
 
 AI_N_GamesApp::AI_N_GamesApp() {
 
@@ -26,9 +29,26 @@ bool AI_N_GamesApp::startup() {
 	m_graph = new Graph();
 
 	Agent* ship = new Agent(new aie::Texture("../bin/textures/ship.png"), Vector2(100.0f, 100.0f));
+	Agent* aiAgent = new Agent(new aie::Texture("../bin/textures/car.png"), Vector2(600.0f, 600.0f));
 	ship->AddBehavior(new KeyboardController(aie::Input::getInstance()));
 
+	BooleanDecision* rootNode = new BooleanDecision();
+	BooleanDecision* withinAttackRange = new BooleanDecision();
+	SeekDecision* seekDecision = new SeekDecision(ship);
+	WanderDecision* wanderDecision = new WanderDecision();
+
+	rootNode->CheckWithinRange(aiAgent, ship, 500.0f);
+	rootNode->trueDecision = seekDecision;
+	rootNode->falseDecision = wanderDecision;
+
+	//withinAttackRange->CheckWithinRange(aiAgent, ship, 50.0f);
+	//withinAttackRange->trueDecision = attackDecision;
+	//withinAttackRange->falseDecision = seekDecision;
+
+	aiAgent->AddBehavior(rootNode);
+
 	m_agents.push_back(ship);
+	m_agents.push_back(aiAgent);
 
 	// adding nodes to the graph
 	for (int i = 0; i < 5; ++i)

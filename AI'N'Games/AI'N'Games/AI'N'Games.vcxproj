@@ -163,22 +163,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Agent.cpp" />
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\BooleanDecision.cpp" />
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Decision.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Edge.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Graph.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\KeyboardController.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Node.cpp" />
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\SeekDecision.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderBehavior.cpp" />
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderDecision.cpp" />
     <ClCompile Include="AI_N_GamesApp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Agent.h" />
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\BooleanDecision.h" />
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Decision.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Edge.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Graph.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\IBehavior.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\KeyboardController.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Node.h" />
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\SeekDecision.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderBehavior.h" />
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderDecision.h" />
     <ClInclude Include="AI_N_GamesApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

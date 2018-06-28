@@ -24,6 +24,6 @@ public:
 
 private:
 	aie::Texture* texture;
-	std::vector<IBehavior*> m_behaviors;
+	IBehavior* m_behavior;
 };
 
