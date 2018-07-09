@@ -4,6 +4,7 @@
 
 SeekDecision::SeekDecision()
 {
+	target = nullptr;
 }
 
 SeekDecision::SeekDecision(Agent * target)
@@ -14,7 +15,7 @@ SeekDecision::SeekDecision(Agent * target)
 
 SeekDecision::~SeekDecision()
 {
-	delete target;
+	//delete target;
 }
 
 void SeekDecision::MakeDecision(Agent * agent, float deltaTime)

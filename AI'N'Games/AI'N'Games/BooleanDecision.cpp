@@ -4,17 +4,27 @@
 
 BooleanDecision::BooleanDecision()
 {
+	trueDecision = nullptr;
+	falseDecision = nullptr;
+	target = nullptr;
+}
+
+BooleanDecision::BooleanDecision(Agent * target, float range)
+{
+	this->target = target;
+	this->range = range;
+	trueDecision = nullptr;
+	falseDecision = nullptr;
 }
 
 void BooleanDecision::MakeDecision(Agent * agent, float deltaTime)
 {
-	if (condition)
+	if (target != nullptr)
 	{
-		trueDecision->MakeDecision(agent, deltaTime);
-	}
-	else
-	{
-		falseDecision->MakeDecision(agent, deltaTime);
+		if (CheckWithinRange(agent, target, range))
+			trueDecision->MakeDecision(agent, deltaTime);
+		else
+			falseDecision->MakeDecision(agent, deltaTime);
 	}
 }
 

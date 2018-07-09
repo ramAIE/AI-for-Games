@@ -56,6 +56,15 @@ void Vector2::normalise()
 	m_y /= m;
 }
 
+Vector2 Vector2::normalised()
+{
+	float m = sqrtf(m_x * m_x + m_y * m_y);
+	Vector2 result;
+	result.m_x = m_x / m;
+	result.m_y = m_y / m;
+	return result;
+}
+
 float Vector2::dot(const Vector2 & other)
 {
 	return m_x * other.m_x + m_y * other.m_y;

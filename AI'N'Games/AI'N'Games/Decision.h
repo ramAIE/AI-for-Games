@@ -1,6 +1,6 @@
 #pragma once
-#include "IBehavior.h"
-class Decision : public IBehavior
+class Agent;
+class Decision
 {
 public:
 	Decision() {}

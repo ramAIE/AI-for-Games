@@ -30,6 +30,7 @@ public:
 
 	float magnitude();
 	void normalise();
+	Vector2 normalised();
 	float dot(const Vector2& other);
 
 	~Vector2();
