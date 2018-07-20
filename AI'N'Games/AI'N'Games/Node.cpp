@@ -54,11 +54,32 @@ Node * Node::GetParent()
 
 void Node::SetGScore(float score)
 {
+	gScore = score;
 }
 
 float Node::GetGScore()
 {
-	return 0.0f;
+	return gScore;
+}
+
+void Node::SetFScore(float score)
+{
+	fScore = score;
+}
+
+float Node::GetFScore()
+{
+	return fScore;
+}
+
+bool Node::CompareGScore(Node * a, Node * b)
+{
+	return a < b;
+}
+
+bool Node::CompareFScore(Node * a, Node * b)
+{
+	return a < b;
 }
 
 

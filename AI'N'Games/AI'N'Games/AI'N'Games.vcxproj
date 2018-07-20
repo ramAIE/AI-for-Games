@@ -170,6 +170,7 @@
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\KeyboardController.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\Node.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\ObstacleAvoidance.cpp" />
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\PathFindDecision.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\SeekDecision.cpp" />
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderDecision.cpp" />
     <ClCompile Include="AI_N_GamesApp.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\KeyboardController.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\Node.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\ObstacleAvoidance.h" />
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\PathFindDecision.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\SeekDecision.h" />
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\WanderDecision.h" />
     <ClInclude Include="AI_N_GamesApp.h" />

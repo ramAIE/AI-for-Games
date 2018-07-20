@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\ObstacleAvoidance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\AI%27N%27Games\AI%27N%27Games\PathFindDecision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI_N_GamesApp.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\ObstacleAvoidance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AI%27N%27Games\AI%27N%27Games\PathFindDecision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

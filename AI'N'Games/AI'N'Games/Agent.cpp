@@ -47,7 +47,7 @@ void Agent::update(float deltaTime)
 void Agent::draw(aie::Renderer2D * renderer)
 {
 	renderer->drawCircle(m_circle.p.m_x, m_circle.p.m_y, m_circle.r);
-	renderer->drawSprite(texture, position.m_x, position.m_y);
+	renderer->drawSprite(texture, position.m_x, position.m_y, 0, 0, rotation);
 	renderer->drawLine(position.m_x, position.m_y, velocity.m_x, velocity.m_y);
 }
 

@@ -18,6 +18,8 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	void SetGraph();
+
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

@@ -13,6 +13,9 @@ KeyboardController::KeyboardController(aie::Input * input)
 
 void KeyboardController::update(Agent * agent, float deltaTime)
 {
+	int mouseX = input->getMouseX();
+	int mouseY = input->getMouseY();
+
 	if (input->isKeyDown(aie::INPUT_KEY_W))
 	{
 		agent->AddForce(Vector2(0.0f, 100.0f));
@@ -29,6 +32,7 @@ void KeyboardController::update(Agent * agent, float deltaTime)
 	{
 		agent->AddForce(Vector2(100.0f, 0.0f));
 	}
+	agent->rotation = -mouseX * deltaTime;
 }
 
 

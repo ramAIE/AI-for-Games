@@ -35,6 +35,7 @@ public:
 	Vector2 position;
 	Vector2 acceleration;
 	Vector2 velocity;
+	float rotation;
 
 private:
 	aie::Texture* texture;

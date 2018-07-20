@@ -18,11 +18,12 @@ void Edge::SetNodeB(Node * node)
 
 float Edge::GetCost()
 {
-	return 0.0f;
+	return cost;
 }
 
 void Edge::SetCost(float cost)
 {
+	this->cost = cost;
 }
 
 

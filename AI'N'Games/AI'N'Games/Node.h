@@ -22,6 +22,14 @@ public:
 	// GScore for the Node
 	void SetGScore(float score);
 	float GetGScore();
+	// F-Score for the node
+	void SetFScore(float score);
+	float GetFScore();
+
+	static bool CompareGScore(Node * a, Node * b);
+	static bool CompareFScore(Node * a, Node * b);
+
+	bool highlighted;
 
 	~Node();
 
@@ -31,5 +39,6 @@ private:
 	Node* parent;
 	bool visited;
 	float gScore;
+	float fScore;
 };
 
