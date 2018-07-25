@@ -1,6 +1,7 @@
 #include "KeyboardController.h"
 #include <Input.h>
 #include "Agent.h"
+#include <iostream>
 
 KeyboardController::KeyboardController()
 {
@@ -32,7 +33,20 @@ void KeyboardController::update(Agent * agent, float deltaTime)
 	{
 		agent->AddForce(Vector2(100.0f, 0.0f));
 	}
-	agent->rotation = -mouseX * deltaTime;
+	// mouse position 
+	Vector2 mousePos = Vector2(mouseX, mouseY);
+	// direction the agent is facing
+	Vector2 facing = Vector2(cosf(agent->rotation), sinf(agent->rotation));
+	// length vector in current direction
+	Vector2 current = facing - agent->position;
+	current.normalise();
+	// length vector in target direction
+	Vector2 target = agent->position - mousePos;
+	target.normalise();
+	// find the angle by finding the dot product
+	float angle = current.dot(target);
+	agent->rotation = acosf(angle);
+	std::cout << agent->rotation << std::endl;
 }
 
 

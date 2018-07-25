@@ -9,7 +9,7 @@ WanderDecision::WanderDecision()
 
 void WanderDecision::MakeDecision(Agent * agent, float deltaTime)
 {
-	std::cout << "wandering" << std::endl;
+	//std::cout << "wandering" << std::endl;
 	agent->AddForce(Vector2(-10, -10));
 }
 
