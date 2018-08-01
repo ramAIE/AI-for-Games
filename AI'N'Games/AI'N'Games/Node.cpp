@@ -74,12 +74,12 @@ float Node::GetFScore()
 
 bool Node::CompareGScore(Node * a, Node * b)
 {
-	return a < b;
+	return a->gScore < b->gScore;
 }
 
 bool Node::CompareFScore(Node * a, Node * b)
 {
-	return a < b;
+	return a->fScore < b->fScore;
 }
 
 
