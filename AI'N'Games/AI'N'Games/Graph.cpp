@@ -148,7 +148,7 @@ std::vector<Node*> Graph::AStarSearch(Node * startNode, Node * endNode)
 	for (auto n : nodes)
 	{
 		n->SetParent(nullptr);
-		n->SetGScore(INFINITY);
+		n->SetGScore(NULL);
 		n->SetFScore(INFINITY);
 	}
 	// set up the priority queue
@@ -188,9 +188,9 @@ std::vector<Node*> Graph::AStarSearch(Node * startNode, Node * endNode)
 					e->GetNodeB()->SetParent(currentNode);
 					// set the f-score connected to the edge to current node g-score + edge cost + heuristic score
 					e->GetNodeB()->SetFScore(cost);
+					// push the target node to the queue
+					priorityQueue.push_back(e->GetNodeB());
 				}
-				// push the target node to the queue
-				priorityQueue.push_back(e->GetNodeB());
 			}
 		}
 	}

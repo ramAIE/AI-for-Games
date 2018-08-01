@@ -29,18 +29,18 @@ bool AI_N_GamesApp::startup() {
 
 	// setting up the graphs
 	m_graph = new Graph();
-	//SetGraph();
+	SetGraph();
 
 	// pathfinding using A*
-	//Node* startNode = m_graph->GetNodes()[1];
-	//Node* endNode = m_graph->GetNodes()[70];
+	Node* startNode = m_graph->GetNodes()[1];
+	Node* endNode = m_graph->GetNodes()[70];
 
-	//std::vector<Node*> path = m_graph->DjikstraSearch(startNode, endNode);
+	std::vector<Node*> path = m_graph->AStarSearch(startNode, endNode);
 
-	//for (auto node : path)
-	//{
-	//	node->highlighted = true;
-	//}
+	for (auto node : path)
+	{
+		node->highlighted = true;
+	}
 
 	Agent* ship = new Agent(new aie::Texture("../bin/textures/ship.png"), Vector2(100.0f, 100.0f));
 	Agent* aiAgent = new Agent(new aie::Texture("../bin/textures/car.png"), Vector2(600.0f, 600.0f));
