@@ -152,6 +152,24 @@ void Matrix3::translate(float x, float y)
 	m_21 += y;
 }
 
+void Matrix3::rotateX(float radians) {
+	Matrix3 m;
+	m.setRotateX(radians);
+	*this = *this * m;
+}
+
+void Matrix3::rotateY(float radians) {
+	Matrix3 m;
+	m.setRotateY(radians);
+	*this = *this * m;
+}
+
+void Matrix3::rotateZ(float radians) {
+	Matrix3 m;
+	m.setRotateZ(radians);
+	*this = *this * m;
+}
+
 Matrix3::~Matrix3()
 {
 }

@@ -46,6 +46,10 @@ public:
 
 	void translate(float x, float y);
 
+	void rotateX(float radians);
+	void rotateY(float radians);
+	void rotateZ(float radians);
+
 	~Matrix3();
 };
 
