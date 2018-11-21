@@ -87,11 +87,16 @@ void Agent::AddForce(Vector3 force) {
 bool Agent::RotateHeadingtoFacePosition(Vector3 target) {
 	Vector3 toTarget = target - m_local[2];
 	toTarget.normalise();
-	// determine the angle between the heading vector and the target
+
 	auto heading = m_local[1];
 	heading.normalise();
+
+	// determine the angle between the heading vector and the target
 	float angle = acosf(heading.dot(toTarget));
+
+	// return true if the player is facing the target
 	if (angle < 0.00001) return true;
+
 	return false;
 }
 
