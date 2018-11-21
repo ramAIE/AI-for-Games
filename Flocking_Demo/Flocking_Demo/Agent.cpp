@@ -30,8 +30,9 @@ void Agent::update(float deltaTime) {
 		m_velocity.normalise();
 		m_velocity = m_velocity * m_maxVelocity;
 	}
-	
 	float angle = atanf(m_velocity.m_y / m_velocity.m_x);
+	if (angle > 0)
+		rotate(angle);
 
 	translate(m_velocity * deltaTime);
 	m_acceleration = Vector3(0, 0, 0);
@@ -83,15 +84,15 @@ void Agent::AddForce(Vector3 force) {
 	m_acceleration = m_acceleration + force;
 }
 
-void Agent::LookAt(Vector3 target) {
-	Vector3 currentVelocity = m_local[1] - m_local[2];
-	currentVelocity.normalise();
-
-	Vector3 targetVelocity = target - m_local[2];
-	targetVelocity.normalise();
-
-	float angle = acosf(currentVelocity.dot(targetVelocity));
-	rotate(angle);
+bool Agent::RotateHeadingtoFacePosition(Vector3 target) {
+	Vector3 toTarget = target - m_local[2];
+	toTarget.normalise();
+	// determine the angle between the heading vector and the target
+	auto heading = m_local[1];
+	heading.normalise();
+	float angle = acosf(heading.dot(toTarget));
+	if (angle < 0.00001) return true;
+	return false;
 }
 
 

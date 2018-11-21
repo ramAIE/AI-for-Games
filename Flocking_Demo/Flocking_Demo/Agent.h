@@ -36,7 +36,7 @@ public:
 
 	void AddForce(Vector3 force);
 
-	void LookAt(Vector3 target);
+	bool RotateHeadingtoFacePosition(Vector3 target);
 
 	~Agent();
 
