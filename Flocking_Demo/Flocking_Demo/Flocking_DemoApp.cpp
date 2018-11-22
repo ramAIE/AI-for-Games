@@ -26,7 +26,7 @@ bool Flocking_DemoApp::startup() {
 	aie::Texture* boidTexture = new aie::Texture("../bin/textures/boid.png");
 
 	for (int i = 0; i < 20; ++i) {
-		Vector3 boidPos = Vector3(rand() / (float)RAND_MAX * getWindowWidth(), rand() / (float)RAND_MAX * getWindowHeight(), 0);
+		Vector3 boidPos = Vector3(rand() / (float)RAND_MAX * getWindowWidth(), rand() / (float)RAND_MAX * getWindowHeight(), 1);
 		Agent* boid = new Agent(boidTexture, boidPos);
 		m_AIboids.push_back(boid);
 	}

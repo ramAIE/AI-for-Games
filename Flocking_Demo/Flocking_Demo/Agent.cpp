@@ -2,6 +2,8 @@
 #include <Renderer2D.h>
 #include <Texture.h>
 #include "Behaviour.h"
+#include <GenLib.h>
+#include <iostream>
 
 Agent::Agent() {
 	m_texture = nullptr;
@@ -19,9 +21,16 @@ Agent::Agent(aie::Texture * texture, Vector3 pos) {
 	m_acceleration = Vector3(0, 0, 0);
 	m_velocity = Vector3(0, 0, 0);
 	m_maxVelocity = 100.0f;
+	m_heading = m_local[2] + m_local[1];
 }
 
 void Agent::update(float deltaTime) {
+	// direction the agent is facing
+	m_heading = m_local[1] + m_local[2];
+	// perpendicular vector
+	m_side = m_local[0] + m_local[2];
+	m_side.normalise();
+
 	AddForce(m_velocity * -0.15f);
 	m_velocity = m_velocity + m_acceleration * deltaTime;
 
@@ -30,11 +39,34 @@ void Agent::update(float deltaTime) {
 		m_velocity.normalise();
 		m_velocity = m_velocity * m_maxVelocity;
 	}
-	float angle = atanf(m_velocity.m_y / m_velocity.m_x);
-	if (angle > 0)
-		rotate(angle);
 
+	// 
+	Vector3 point2 = m_velocity + m_local[2];
+
+	float angle = 0.0f;
+
+	Vector3 toTarget = point2 - m_local[2];
+	toTarget.normalise();
+
+	Vector3 current = m_heading - m_local[2];
+	current.normalise();
+	// determine the angle between the heading vector and the target
+	angle = acosf(current.dot(toTarget));
+
+	std::cout << RadtoDeg(angle * current.Sign(toTarget)) << std::endl;
+
+	// return true if the player is facing the target
+	// need to fix the rotation.
+	// rotates quite faster before it chooses the direction of the velocity.
+	if (angle > 0.1)
+	{
+		Matrix3 rotationMatrix = Matrix3::createRotation(angle * current.Sign(toTarget));
+		Matrix3 translationMatrix = Matrix3::createTranslation(m_local[2].m_x, m_local[2].m_y, m_local[2].m_z);
+		m_local = translationMatrix * rotationMatrix;
+
+	}
 	translate(m_velocity * deltaTime);
+
 	m_acceleration = Vector3(0, 0, 0);
 
 	UpdateGlobalTransform();
@@ -46,6 +78,17 @@ void Agent::update(float deltaTime) {
 
 void Agent::draw(aie::Renderer2D * renderer) {
 	renderer->drawSpriteTransformed3x3(m_texture, (float*)m_global);
+	Vector3 velocityPoint = m_global[2] + m_velocity * 2.0f;
+	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, velocityPoint.m_x, velocityPoint.m_y);
+	renderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
+	Vector3 headingPoint = m_global[2] + m_global[1] * 100.0f;
+	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, headingPoint.m_x, headingPoint.m_y);
+	renderer->setRenderColour(1.0f, 0.0f, 0.0f);
+	Vector3 sidePoint = m_global[2] + m_global[0] * 100.0f;
+	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, sidePoint.m_x, sidePoint.m_y);
+	renderer->setRenderColour(1.0f, 1.0f, 1.0f);
+
+
 }
 
 Matrix3 Agent::GetLocalTransform() {
@@ -88,14 +131,12 @@ bool Agent::RotateHeadingtoFacePosition(Vector3 target) {
 	Vector3 toTarget = target - m_local[2];
 	toTarget.normalise();
 
-	auto heading = m_local[1];
-	heading.normalise();
-
 	// determine the angle between the heading vector and the target
-	float angle = acosf(heading.dot(toTarget));
+	float angle = acosf(m_heading.dot(toTarget));
 
 	// return true if the player is facing the target
-	if (angle < 0.00001) return true;
+	if (angle < 0.00001) 
+		return true;
 
 	return false;
 }

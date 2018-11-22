@@ -1,6 +1,6 @@
 #include "SteeringBehaviour.h"
 #include "SteeringForce.h"
-
+#include <iostream>
 
 SteeringBehaviour::SteeringBehaviour() {
 }

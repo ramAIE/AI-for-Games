@@ -53,6 +53,9 @@ private:
 	
 	Vector3 m_velocity;
 
+	Vector3 m_heading;
+	Vector3 m_side;
+
 	float m_maxVelocity;
 };
 

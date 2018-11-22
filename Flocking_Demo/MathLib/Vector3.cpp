@@ -67,6 +67,14 @@ float Vector3::dot(const Vector3& other)
 	return m_x * other.m_x + m_y * other.m_y + m_z * other.m_z;
 }
 
+int Vector3::Sign(Vector3 & other)
+{
+	if (m_y * other.m_x > m_x * other.m_y)
+		return 1;
+	else
+		return -1;
+}
+
 
 Vector3::~Vector3()
 {

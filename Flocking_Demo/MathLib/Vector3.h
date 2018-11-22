@@ -30,6 +30,8 @@ public:
 	Vector3 cross(Vector3 other);
 	float dot(const Vector3& other);
 
+	int Sign(Vector3& other);
+
 
 	~Vector3();
 };
