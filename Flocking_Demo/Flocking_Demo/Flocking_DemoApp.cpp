@@ -5,6 +5,8 @@
 #include "Agent.h"
 #include "SteeringBehaviour.h"
 #include "CohesionForce.h"
+#include "SeparationForce.h"
+#include "AlignmentForce.h"
 #include <random>
 
 Flocking_DemoApp::Flocking_DemoApp() {
@@ -32,10 +34,22 @@ bool Flocking_DemoApp::startup() {
 	}
 
 	m_steeringBehaviour = new SteeringBehaviour();
+
 	CohesionForce* cohesion = new CohesionForce();
 	cohesion->setBoids(m_AIboids);
 	cohesion->setRadius(1000.0f);
+
+	SeparationForce* separation = new SeparationForce();
+	separation->setBoids(m_AIboids);
+	separation->setRadius(1000.0f);
+
+	AlignmentForce* alignment = new AlignmentForce();
+	alignment->setBoids(m_AIboids);
+	alignment->setRadius(1000.0f);
+
 	m_steeringBehaviour->addForce(cohesion);
+	m_steeringBehaviour->addForce(separation);
+	m_steeringBehaviour->addForce(alignment);
 
 	for (auto b : m_AIboids) {
 		b->addBehaviour(m_steeringBehaviour);

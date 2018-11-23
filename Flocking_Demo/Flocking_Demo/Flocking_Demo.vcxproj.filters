@@ -30,6 +30,12 @@
     <ClCompile Include="CohesionForce.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SeparationForce.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AlignmentForce.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Flocking_DemoApp.h">
@@ -48,6 +54,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CohesionForce.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SeparationForce.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlignmentForce.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

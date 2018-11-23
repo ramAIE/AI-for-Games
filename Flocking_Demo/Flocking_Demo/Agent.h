@@ -28,6 +28,9 @@ public:
 	void SetPosition(Vector3 position);
 	void SetRotate(float radians);
 
+	// return the velocity of the agent
+	Vector3 GetVelocity() { return m_velocity; }
+
 	// Move and Turn the agent
 	void translate(Vector3 position);
 	void rotate(float radians);
