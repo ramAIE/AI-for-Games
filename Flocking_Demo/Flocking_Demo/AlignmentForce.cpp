@@ -26,16 +26,22 @@ Vector3 AlignmentForce::getForce(Agent * agent) {
 
 		// is this boid within the radius?
 		if (length > 0 && length < m_radius) {
-			force = force + agent->GetVelocity();
-			neighbours++;
+			Vector3 v = agent->GetVelocity();
+			float distance = v.magnitude();
+			if (distance > 0) {
+				force = force + v;
+				neighbours++;
+			}
 		}
 	}
 
 	if (neighbours > 0) {
-		force.m_x = force.m_x / (neighbours);
-		force.m_y = force.m_y / (neighbours);
-		//force.normalise();
+		force.m_x = force.m_x / (neighbours) - agent->GetVelocity().m_x;
+		force.m_y = force.m_y / (neighbours) - agent->GetVelocity().m_y;
+		float d = force.magnitude();
+		if (d > 0)
+			force.normalise();
 	}
 
-	return force;
+	return force * 500.0f;
 }

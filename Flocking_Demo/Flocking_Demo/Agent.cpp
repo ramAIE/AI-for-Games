@@ -25,6 +25,17 @@ Agent::Agent(aie::Texture * texture, Vector3 pos) {
 }
 
 void Agent::update(float deltaTime) {
+	// agent goes out of bounds
+	if (m_local[2].m_x < 0)
+		m_local[2].m_x = 1280;
+	else if (m_local[2].m_x > 1280)
+		m_local[2].m_x = 0;
+
+	if (m_local[2].m_y < 0)
+		m_local[2].m_y = 720;
+	else if (m_local[2].m_y > 720)
+		m_local[2].m_y = 0;
+
 	// direction the agent is facing
 	m_heading = m_local[1] + m_local[2];
 

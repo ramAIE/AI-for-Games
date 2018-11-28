@@ -33,8 +33,10 @@ Vector3 CohesionForce::getForce(Agent * agent) {
 
 	if (neighbours > 0) {
 		force = force / neighbours - currentPosition;
-		force.normalise();
+		float d = force.magnitude();
+		if (d > 0)
+			force.normalise();
 	}
 
-	return force;
+	return force * 500.0f;
 }

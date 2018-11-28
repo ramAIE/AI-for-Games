@@ -8,3 +8,8 @@ public:
 
 	virtual Vector3 getForce(Agent* agent) = 0;
 };
+
+struct WeightedForce {
+	SteeringForce* force;
+	float weight;
+};

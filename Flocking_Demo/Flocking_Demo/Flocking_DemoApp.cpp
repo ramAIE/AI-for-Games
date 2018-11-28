@@ -27,7 +27,7 @@ bool Flocking_DemoApp::startup() {
 
 	aie::Texture* boidTexture = new aie::Texture("../bin/textures/boid.png");
 
-	for (int i = 0; i < 20; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		Vector3 boidPos = Vector3(rand() / (float)RAND_MAX * getWindowWidth(), rand() / (float)RAND_MAX * getWindowHeight(), 1);
 		Agent* boid = new Agent(boidTexture, boidPos);
 		m_AIboids.push_back(boid);
@@ -47,9 +47,9 @@ bool Flocking_DemoApp::startup() {
 	alignment->setBoids(m_AIboids);
 	alignment->setRadius(1000.0f);
 
-	m_steeringBehaviour->addForce(cohesion);
-	m_steeringBehaviour->addForce(separation);
-	m_steeringBehaviour->addForce(alignment);
+	m_steeringBehaviour->addForce(separation, 1.0f);
+	m_steeringBehaviour->addForce(cohesion, 1.0f);
+	m_steeringBehaviour->addForce(alignment, 1.0f);
 
 	for (auto b : m_AIboids) {
 		b->addBehaviour(m_steeringBehaviour);

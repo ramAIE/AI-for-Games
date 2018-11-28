@@ -33,6 +33,10 @@ Vector3 Vector3::operator/(float scalar)
 	return { m_x / scalar, m_y / scalar, m_z / scalar };
 }
 
+bool Vector3::operator==(Vector3 other) {
+	return (m_x == other.m_x, m_y == other.m_y, m_z == other.m_z);
+}
+
 Vector3::operator float*()
 {
 	return data;

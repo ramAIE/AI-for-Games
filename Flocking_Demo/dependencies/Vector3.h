@@ -22,6 +22,7 @@ public:
 	Vector3 operator - (Vector3 other);
 	Vector3 operator * (float scalar);
 	Vector3 operator / (float scalar);
+	bool operator == (Vector3 other);
 	explicit operator float*();
 	friend Vector3 operator * (float scalar, const Vector3 & other);
 
