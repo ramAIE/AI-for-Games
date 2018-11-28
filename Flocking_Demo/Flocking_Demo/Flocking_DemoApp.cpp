@@ -7,6 +7,7 @@
 #include "CohesionForce.h"
 #include "SeparationForce.h"
 #include "AlignmentForce.h"
+#include "SeekForce.h"
 #include <random>
 
 Flocking_DemoApp::Flocking_DemoApp() {
@@ -27,7 +28,7 @@ bool Flocking_DemoApp::startup() {
 
 	aie::Texture* boidTexture = new aie::Texture("../bin/textures/boid.png");
 
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 0; i < 100; ++i) {
 		Vector3 boidPos = Vector3(rand() / (float)RAND_MAX * getWindowWidth(), rand() / (float)RAND_MAX * getWindowHeight(), 1);
 		Agent* boid = new Agent(boidTexture, boidPos);
 		m_AIboids.push_back(boid);
@@ -35,21 +36,25 @@ bool Flocking_DemoApp::startup() {
 
 	m_steeringBehaviour = new SteeringBehaviour();
 
+	SeekForce* seek = new SeekForce();
+	seek->setTarget(aie::Input::getInstance(), Vector3(100, 200,1));
+
 	CohesionForce* cohesion = new CohesionForce();
 	cohesion->setBoids(m_AIboids);
-	cohesion->setRadius(1000.0f);
+	cohesion->setRadius(100.0f);
 
 	SeparationForce* separation = new SeparationForce();
 	separation->setBoids(m_AIboids);
-	separation->setRadius(1000.0f);
+	separation->setRadius(100.0f);
 
 	AlignmentForce* alignment = new AlignmentForce();
 	alignment->setBoids(m_AIboids);
-	alignment->setRadius(1000.0f);
+	alignment->setRadius(100.0f);
 
-	m_steeringBehaviour->addForce(separation, 1.0f);
+	m_steeringBehaviour->addForce(seek, 10.0f);
 	m_steeringBehaviour->addForce(cohesion, 1.0f);
-	m_steeringBehaviour->addForce(alignment, 1.0f);
+	m_steeringBehaviour->addForce(alignment, 3.0f);
+	m_steeringBehaviour->addForce(separation, 5.0f);
 
 	for (auto b : m_AIboids) {
 		b->addBehaviour(m_steeringBehaviour);

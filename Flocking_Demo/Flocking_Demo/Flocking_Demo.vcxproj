@@ -169,6 +169,7 @@
     <ClCompile Include="CohesionForce.cpp" />
     <ClCompile Include="Flocking_DemoApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SeekForce.cpp" />
     <ClCompile Include="SeparationForce.cpp" />
     <ClCompile Include="SteeringBehaviour.cpp" />
   </ItemGroup>
@@ -178,6 +179,7 @@
     <ClInclude Include="Behaviour.h" />
     <ClInclude Include="CohesionForce.h" />
     <ClInclude Include="Flocking_DemoApp.h" />
+    <ClInclude Include="SeekForce.h" />
     <ClInclude Include="SeparationForce.h" />
     <ClInclude Include="SteeringBehaviour.h" />
     <ClInclude Include="SteeringForce.h" />

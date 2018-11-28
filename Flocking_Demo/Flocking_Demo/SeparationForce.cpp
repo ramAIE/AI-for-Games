@@ -37,5 +37,5 @@ Vector3 SeparationForce::getForce(Agent * agent) {
 		force = force / neighbours;
 	}
 
-	return force * 500.0f;
+	return force * 100.0f;
 }

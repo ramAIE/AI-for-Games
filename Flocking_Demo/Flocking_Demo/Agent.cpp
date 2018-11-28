@@ -61,10 +61,13 @@ void Agent::update(float deltaTime) {
 		translate(m_velocity * deltaTime);
 	}
 
+	// reset the acceleration to zero if not moving
 	m_acceleration = Vector3(0, 0, 0);
 
+	// update the globalTransform
 	UpdateGlobalTransform();
 
+	// iterate through all the behaviours of the agent
 	for (auto behaviour : m_behaviours) {
 		behaviour->update(this, deltaTime);
 	}
@@ -73,17 +76,21 @@ void Agent::update(float deltaTime) {
 void Agent::draw(aie::Renderer2D * renderer) {
 	renderer->drawSpriteTransformed3x3(m_texture, (float*)&m_global);
 
+	// uncomment the following code to show the x-axis, y-axis and velocity lines for the agent in local space
+	/* 
+	// draw an orange line to represent velocity
 	renderer->setRenderColour(0.8f, 0.5f, 0.2f);
 	Vector3 velocityPoint = m_global[2] + m_velocity * 2.0f;
 	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, velocityPoint.m_x, velocityPoint.m_y);
-
+	// draw a green line to represent y-axis
 	renderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
 	Vector3 headingPoint = m_global[2] + m_global[1] * 50.0f;
 	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, headingPoint.m_x, headingPoint.m_y);
-
+	// draw a red line to represent x-axis
 	renderer->setRenderColour(1.0f, 0.0f, 0.0f);
 	Vector3 sidePoint = m_global[2] + m_global[0] * 50.0f;
 	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, sidePoint.m_x, sidePoint.m_y);
+	*/
 
 	renderer->setRenderColour(1.0f, 1.0f, 1.0f);
 }
