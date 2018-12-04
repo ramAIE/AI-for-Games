@@ -31,6 +31,9 @@ public:
 	// return the velocity of the agent
 	Vector3 GetVelocity() { return m_velocity; }
 
+	// return the speed
+	float GetSpeed() { return m_speed; }
+
 	// Move and Turn the agent
 	void translate(Vector3 position);
 	void rotate(float radians);
@@ -60,5 +63,7 @@ private:
 	Vector3 m_side;
 
 	float m_maxVelocity;
+
+	float m_speed;
 };
 

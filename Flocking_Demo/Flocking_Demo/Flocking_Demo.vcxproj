@@ -172,6 +172,7 @@
     <ClCompile Include="SeekForce.cpp" />
     <ClCompile Include="SeparationForce.cpp" />
     <ClCompile Include="SteeringBehaviour.cpp" />
+    <ClCompile Include="WanderForce.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="SeparationForce.h" />
     <ClInclude Include="SteeringBehaviour.h" />
     <ClInclude Include="SteeringForce.h" />
+    <ClInclude Include="WanderForce.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

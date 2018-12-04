@@ -38,5 +38,5 @@ Vector3 CohesionForce::getForce(Agent * agent) {
 			force.normalise();
 	}
 
-	return force * 100.0f;
+	return force * agent->GetSpeed();
 }

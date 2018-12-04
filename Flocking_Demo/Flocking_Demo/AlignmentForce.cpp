@@ -43,5 +43,5 @@ Vector3 AlignmentForce::getForce(Agent * agent) {
 			force.normalise();
 	}
 
-	return force * 100.0f;
+	return force * agent->GetSpeed();
 }

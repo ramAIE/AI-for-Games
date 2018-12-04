@@ -12,6 +12,7 @@ Agent::Agent() {
 	m_acceleration = Vector3(0, 0, 0);
 	m_velocity = Vector3(0, 0, 0);
 	m_maxVelocity = 300.0f;
+	m_speed = 100.f;
 }
 
 Agent::Agent(aie::Texture * texture, Vector3 pos) {
@@ -22,6 +23,7 @@ Agent::Agent(aie::Texture * texture, Vector3 pos) {
 	m_velocity = Vector3(0, 0, 0);
 	m_maxVelocity = 100.0f;
 	m_heading = m_local[2] + m_local[1];
+	m_speed = 100.0f;
 }
 
 void Agent::update(float deltaTime) {
@@ -77,11 +79,11 @@ void Agent::draw(aie::Renderer2D * renderer) {
 	renderer->drawSpriteTransformed3x3(m_texture, (float*)&m_global);
 
 	// uncomment the following code to show the x-axis, y-axis and velocity lines for the agent in local space
+	/* 
 	// draw an orange line to represent velocity
 	renderer->setRenderColour(0.8f, 0.5f, 0.2f);
 	Vector3 velocityPoint = m_global[2] + m_velocity * 2.0f;
 	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, velocityPoint.m_x, velocityPoint.m_y);
-	/* 
 	// draw a green line to represent y-axis
 	renderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
 	Vector3 headingPoint = m_global[2] + m_global[1] * 50.0f;
@@ -140,12 +142,12 @@ bool Agent::RotateHeadingtoFacePosition(Vector3 target, float deltaTime) {
 
 	Vector3 current = m_heading - m_local[2];
 	current.normalise();
+
 	// determine the angle between the heading vector and the target
 	angle = acosf(current.dot(toTarget));
 
-	angle = (angle * 3.14f) / 360.0f;
-
-	//std::cout << RadtoDeg(angle * current.Sign(toTarget)) << std::endl;
+	// converting angle to radians
+	angle = DegtoRad(angle);
 
 	// need to fix the rotation.
 	// rotates quite faster before it chooses the direction of the velocity.

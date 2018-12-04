@@ -7,7 +7,7 @@
 #include "CohesionForce.h"
 #include "SeparationForce.h"
 #include "AlignmentForce.h"
-#include "SeekForce.h"
+#include "WanderForce.h"
 #include <random>
 
 Flocking_DemoApp::Flocking_DemoApp() {
@@ -36,22 +36,27 @@ bool Flocking_DemoApp::startup() {
 
 	m_steeringBehaviour = new SteeringBehaviour();
 
-	SeekForce* seek = new SeekForce();
-	seek->setTarget(aie::Input::getInstance(), Vector3(100, 200,1));
+	WanderForce* wander = new WanderForce();
+	wander->SetDistance(50.0f);
+	wander->SetRadius(5.0f);
+	wander->SetWanderAngle(3.14f);
+
+	//SeekForce* seek = new SeekForce();
+	//seek->setTarget(aie::Input::getInstance(), Vector3(100, 200,1));
 
 	CohesionForce* cohesion = new CohesionForce();
 	cohesion->setBoids(m_AIboids);
-	cohesion->setRadius(100.0f);
+	cohesion->setRadius(200.0f);
 
 	SeparationForce* separation = new SeparationForce();
 	separation->setBoids(m_AIboids);
-	separation->setRadius(100.0f);
+	separation->setRadius(200.0f);
 
 	AlignmentForce* alignment = new AlignmentForce();
 	alignment->setBoids(m_AIboids);
-	alignment->setRadius(100.0f);
+	alignment->setRadius(200.0f);
 
-	m_steeringBehaviour->addForce(seek, 1.0f);
+	m_steeringBehaviour->addForce(wander, 1.0f);
 	m_steeringBehaviour->addForce(cohesion, 1.0f);
 	m_steeringBehaviour->addForce(alignment, 3.0f);
 	m_steeringBehaviour->addForce(separation, 5.0f);
