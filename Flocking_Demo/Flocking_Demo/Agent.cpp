@@ -57,7 +57,7 @@ void Agent::update(float deltaTime) {
 	Vector3 velocityVector = m_velocity + m_local[2];
 
 	// if the agent has rotated to face the velocity vector, move the player towards the direction.
-	if (RotateHeadingtoFacePosition(velocityVector)) {
+	if (RotateHeadingtoFacePosition(velocityVector, deltaTime)) {
 		translate(m_velocity * deltaTime);
 	}
 
@@ -77,11 +77,11 @@ void Agent::draw(aie::Renderer2D * renderer) {
 	renderer->drawSpriteTransformed3x3(m_texture, (float*)&m_global);
 
 	// uncomment the following code to show the x-axis, y-axis and velocity lines for the agent in local space
-	/* 
 	// draw an orange line to represent velocity
 	renderer->setRenderColour(0.8f, 0.5f, 0.2f);
 	Vector3 velocityPoint = m_global[2] + m_velocity * 2.0f;
 	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, velocityPoint.m_x, velocityPoint.m_y);
+	/* 
 	// draw a green line to represent y-axis
 	renderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
 	Vector3 headingPoint = m_global[2] + m_global[1] * 50.0f;
@@ -132,7 +132,7 @@ void Agent::AddForce(Vector3 force) {
 }
 
 // return true if the player is facing the target
-bool Agent::RotateHeadingtoFacePosition(Vector3 target) {
+bool Agent::RotateHeadingtoFacePosition(Vector3 target, float deltaTime) {
 	float angle = 0.0f;
 
 	Vector3 toTarget = target - m_local[2];
@@ -143,14 +143,15 @@ bool Agent::RotateHeadingtoFacePosition(Vector3 target) {
 	// determine the angle between the heading vector and the target
 	angle = acosf(current.dot(toTarget));
 
-	std::cout << RadtoDeg(angle * current.Sign(toTarget)) << std::endl;
+	angle = (angle * 3.14f) / 360.0f;
+
+	//std::cout << RadtoDeg(angle * current.Sign(toTarget)) << std::endl;
 
 	// need to fix the rotation.
 	// rotates quite faster before it chooses the direction of the velocity.
-	if (angle > 0.1f) {
+	if (angle > 0.001f) {
 		Matrix3 rotationMatrix = Matrix3::createRotation(angle * current.Sign(toTarget));
-		Matrix3 translationMatrix = Matrix3::createTranslation(m_local[2].m_x, m_local[2].m_y, m_local[2].m_z);
-		m_local = translationMatrix * rotationMatrix;
+		m_local = m_local * rotationMatrix;
 		return false;
 	}
 

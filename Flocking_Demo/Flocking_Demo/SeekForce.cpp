@@ -33,5 +33,5 @@ Vector3 SeekForce::getForce(Agent * agent) {
 	// calculate the steering force
 	force = desiredVelocity - agent->GetVelocity();
 
-	return force;
+	return force * 10.0f;
 }

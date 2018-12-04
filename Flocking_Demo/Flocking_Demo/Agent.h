@@ -39,7 +39,7 @@ public:
 
 	void AddForce(Vector3 force);
 
-	bool RotateHeadingtoFacePosition(Vector3 target);
+	bool RotateHeadingtoFacePosition(Vector3 target, float deltaTime);
 
 	~Agent();
 

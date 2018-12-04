@@ -74,9 +74,9 @@ float Vector3::dot(const Vector3& other)
 int Vector3::Sign(Vector3 & other)
 {
 	if (m_y * other.m_x > m_x * other.m_y)
-		return 1;
-	else
 		return -1;
+	else
+		return 1;
 }
 
 

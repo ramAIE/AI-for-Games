@@ -51,7 +51,7 @@ bool Flocking_DemoApp::startup() {
 	alignment->setBoids(m_AIboids);
 	alignment->setRadius(100.0f);
 
-	m_steeringBehaviour->addForce(seek, 10.0f);
+	m_steeringBehaviour->addForce(seek, 1.0f);
 	m_steeringBehaviour->addForce(cohesion, 1.0f);
 	m_steeringBehaviour->addForce(alignment, 3.0f);
 	m_steeringBehaviour->addForce(separation, 5.0f);
