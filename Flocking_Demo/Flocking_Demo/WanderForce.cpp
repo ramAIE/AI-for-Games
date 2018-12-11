@@ -36,5 +36,5 @@ Vector3 WanderForce::getForce(Agent * agent) {
 		// calculate the wander force
 		force = circleCenter + displacement;
 	}
-	return force * 10.f;
+	return force * 50.0f;
 }

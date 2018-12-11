@@ -80,12 +80,11 @@ void Agent::update(float deltaTime) {
 void Agent::draw(aie::Renderer2D * renderer) {
 	renderer->drawSpriteTransformed3x3(m_texture, (float*)&m_global);
 
+	/* uncomment the following code to show the x-axis, y-axis and velocity lines for the agent in local space
 	// draw an orange line to represent velocity
 	renderer->setRenderColour(0.8f, 0.5f, 0.2f);
 	Vector3 velocityPoint = m_global[2] + m_velocity;
 	renderer->drawLine(m_global[2].m_x, m_global[2].m_y, velocityPoint.m_x, velocityPoint.m_y);
-	// uncomment the following code to show the x-axis, y-axis and velocity lines for the agent in local space
-	/* 
 	// draw a green line to represent y-axis
 	renderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
 	Vector3 headingPoint = m_global[2] + m_global[1] * 50.0f;

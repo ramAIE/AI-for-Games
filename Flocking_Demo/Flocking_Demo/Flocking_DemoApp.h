@@ -5,7 +5,7 @@
 #include <vector>
 
 #define _AGENTSIZE 100
-#define _OBSTACLESIZE 20
+#define _OBSTACLESIZE 10
 
 class Agent;
 class SteeringBehaviour;

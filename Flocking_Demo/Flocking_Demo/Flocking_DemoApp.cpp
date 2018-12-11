@@ -79,10 +79,10 @@ bool Flocking_DemoApp::startup() {
 
 	// Add all the steering forces to the agent with weight
 	m_steeringBehaviour->addForce(seek, 1.0f);
-	m_steeringBehaviour->addForce(cohesion, 1.0f);
-	m_steeringBehaviour->addForce(alignment, 1.0f);
-	m_steeringBehaviour->addForce(separation, 5.0f);
-	m_steeringBehaviour->addForce(avoidance, 5.0f);
+	m_steeringBehaviour->addForce(cohesion, 2.0f);
+	m_steeringBehaviour->addForce(alignment, 2.0f);
+	m_steeringBehaviour->addForce(separation, 3.5f);
+	m_steeringBehaviour->addForce(avoidance, 10.0f);
 
 	// add the behaviour to all the AI agents
 	for (auto b : m_AIboids) {
@@ -120,19 +120,20 @@ void Flocking_DemoApp::draw() {
 	m_2dRenderer->begin();
 
 	/***** draw your stuff here! *****/
-	// draw AI agents
-	for (auto b : m_AIboids) {
-		b->draw(m_2dRenderer);
-	}
 	// draw obstacles
 	for (auto o : m_obstacles) {
 		m_2dRenderer->drawCircle(o.GetPosition().m_x, o.GetPosition().m_y, o.GetRadius());
 	}
+
+	// draw AI agents
+	for (auto b : m_AIboids) {
+		b->draw(m_2dRenderer);
+	}
 	
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	/*********************************/
 
 	// done drawing sprites
 	m_2dRenderer->end();
-	/*********************************/
 }
