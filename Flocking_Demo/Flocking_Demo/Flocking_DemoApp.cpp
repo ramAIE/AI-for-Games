@@ -8,6 +8,8 @@
 #include "SeparationForce.h"
 #include "AlignmentForce.h"
 #include "WanderForce.h"
+#include "AvoidanceForce.h"
+#include "SeekForce.h"
 #include <random>
 
 Flocking_DemoApp::Flocking_DemoApp() {
@@ -28,39 +30,61 @@ bool Flocking_DemoApp::startup() {
 
 	aie::Texture* boidTexture = new aie::Texture("../bin/textures/boid.png");
 
-	for (int i = 0; i < 100; ++i) {
+	// Adding AI agents to the game
+	for (int i = 0; i < _AGENTSIZE; ++i) {
 		Vector3 boidPos = Vector3(rand() / (float)RAND_MAX * getWindowWidth(), rand() / (float)RAND_MAX * getWindowHeight(), 1);
 		Agent* boid = new Agent(boidTexture, boidPos);
 		m_AIboids.push_back(boid);
 	}
 
+
 	m_steeringBehaviour = new SteeringBehaviour();
 
+	/** Initialize all the steering forces required for the AI agents **/
+	// Wander Force
 	WanderForce* wander = new WanderForce();
 	wander->SetDistance(50.0f);
 	wander->SetRadius(5.0f);
 	wander->SetWanderAngle(3.14f);
 
-	//SeekForce* seek = new SeekForce();
-	//seek->setTarget(aie::Input::getInstance(), Vector3(100, 200,1));
+	/** Uncomment the below code to enable SEEK FORCE **/
+	// Seek Force
+	SeekForce* seek = new SeekForce();
+	seek->setTarget(aie::Input::getInstance(), Vector3(100, 200,1));
 
+	// Cohesion Force
 	CohesionForce* cohesion = new CohesionForce();
 	cohesion->setBoids(m_AIboids);
-	cohesion->setRadius(200.0f);
-
+	cohesion->setRadius(100.0f);
+	// Separation Force
 	SeparationForce* separation = new SeparationForce();
 	separation->setBoids(m_AIboids);
-	separation->setRadius(200.0f);
-
+	separation->setRadius(100.0f);
+	// Alignment Force
 	AlignmentForce* alignment = new AlignmentForce();
 	alignment->setBoids(m_AIboids);
-	alignment->setRadius(200.0f);
+	alignment->setRadius(100.0f);
+	// Obstacle Avoidance Force
+	AvoidanceForce* avoidance = new AvoidanceForce();
+	// Adding obstacles to the game
+	for (int i = 0; i < _OBSTACLESIZE; ++i) {
+		Vector3 obstaclePos = Vector3(rand() / (float)RAND_MAX * getWindowWidth(), rand() / (float)RAND_MAX * getWindowHeight(), 1);
+		Circle obstacle;
+		obstacle.SetPosition(obstaclePos);
+		obstacle.SetRadius(20.0f);
+		m_obstacles.push_back(obstacle);
+		avoidance->AddCircleObstacle(obstacle);
+	}
+	/*******************************************************************/
 
-	m_steeringBehaviour->addForce(wander, 1.0f);
+	// Add all the steering forces to the agent with weight
+	m_steeringBehaviour->addForce(seek, 1.0f);
 	m_steeringBehaviour->addForce(cohesion, 1.0f);
-	m_steeringBehaviour->addForce(alignment, 3.0f);
+	m_steeringBehaviour->addForce(alignment, 1.0f);
 	m_steeringBehaviour->addForce(separation, 5.0f);
+	m_steeringBehaviour->addForce(avoidance, 5.0f);
 
+	// add the behaviour to all the AI agents
 	for (auto b : m_AIboids) {
 		b->addBehaviour(m_steeringBehaviour);
 	}
@@ -95,9 +119,14 @@ void Flocking_DemoApp::draw() {
 	// begin drawing sprites
 	m_2dRenderer->begin();
 
-	// draw your stuff here!
+	/***** draw your stuff here! *****/
+	// draw AI agents
 	for (auto b : m_AIboids) {
 		b->draw(m_2dRenderer);
+	}
+	// draw obstacles
+	for (auto o : m_obstacles) {
+		m_2dRenderer->drawCircle(o.GetPosition().m_x, o.GetPosition().m_y, o.GetRadius());
 	}
 	
 	// output some text, uses the last used colour
@@ -105,4 +134,5 @@ void Flocking_DemoApp::draw() {
 
 	// done drawing sprites
 	m_2dRenderer->end();
+	/*********************************/
 }
