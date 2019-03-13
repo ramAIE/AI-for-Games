@@ -3,9 +3,10 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include <vector>
-class Graph;
 
+class Graph;
 class Agent;
+
 class AI_N_GamesApp : public aie::Application {
 public:
 

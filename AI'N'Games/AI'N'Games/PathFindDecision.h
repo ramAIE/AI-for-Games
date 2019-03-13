@@ -1,15 +1,18 @@
 #pragma once
 #include "Decision.h"
-#include <list>
+#include <vector>
+
 class Node;
+
 class PathFindDecision : public Decision
 {
 public:
 	PathFindDecision();
-	PathFindDecision(std::list<Node*> target);
+	PathFindDecision(std::vector<Node*> target);
 	virtual void MakeDecision(Agent* agent, float deltaTime);
 	~PathFindDecision();
 private:
-	std::list<Node*> target;
+	std::vector<Node*> m_target;
+	Node* m_nextNode;
 };
 

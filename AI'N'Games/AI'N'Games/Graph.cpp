@@ -53,12 +53,17 @@ std::vector<Node*> Graph::DFS(Node * startNode, Node * endNode)
 		// get the top node off the stack and remove it
 		Node* currentNode = nodeStack.top();
 		nodeStack.pop();
+		// check the current node to true
 		currentNode->Visited(true);
+		// go through all the connections of the current node
 		for (auto c : currentNode->GetConnections())
 		{
+			// if the target node is not visited
 			if (!c->GetNodeB()->CheckVisited())
 			{
+				// push it into the stack
 				nodeStack.push(c->GetNodeB());
+				// set the parent of the node to be the current node
 				c->GetNodeB()->SetParent(currentNode);
 			}
 		}
@@ -157,6 +162,7 @@ std::vector<Node*> Graph::AStarSearch(Node * startNode, Node * endNode)
 	startNode->SetParent(nullptr);
 	// set the start node gscore to 0
 	startNode->SetGScore(0);
+	startNode->SetFScore(0);
 	// push start node on to the priority queue
 	priorityQueue.push_back(startNode);
 	// while queue is not empty
@@ -208,9 +214,211 @@ std::vector<Node*> Graph::AStarSearch(Node * startNode, Node * endNode)
 	return path;
 }
 
+std::vector<Node*> Graph::AStarThetaStarSearch(Node * startNode, Node * endNode) {
+	// reset the properties of all the nodes
+	for (auto n : nodes) {
+		// set the node g-score to null
+		n->SetGScore(NULL);
+		// set the node f-score to INF
+		n->SetFScore(INFINITY);
+		// set the parent of the node to nullptr
+		n->SetParent(nullptr);
+	}
+
+	// create a open list to store the list of nodes that has not been traversed
+	std::list<Node*> openList;
+	// create a closed list to store the list of nodes that has been traversed
+	std::list<Node*> closedList;
+
+	// create a container to store the path
+	std::vector<Node*> path;
+
+	// Set the g-score of startnode to 0
+	startNode->SetGScore(0);
+	// set the f-score of startnode to 0
+	startNode->SetFScore(0);
+	startNode->SetParent(nullptr);
+	// add startnode to the openlist
+	openList.push_back(startNode);
+
+	// while the openlist is not empty
+	while (!openList.empty()) {
+		// sort the priority queue based on the f-score
+		openList.sort(Node::CompareFScore);
+
+		// Let currentnode be the firstnode from the openlist
+		Node* currentNode = openList.front();
+		
+		// if currentnode is same as the endnode
+		if (currentNode == endNode) {
+			// exit the loop
+			break;
+		}
+		openList.remove(currentNode);
+		// add currentNode to the closedlist
+		closedList.push_back(currentNode);
+		
+		// for all the edges 'e' in currentnode connections
+		for (auto e : currentNode->GetConnections()) {
+			// check if the targetnode of the connection is not in the closedlist
+			std::list<Node*>::iterator citer = std::find(closedList.begin(), closedList.end(), e->GetNodeB());
+			if (citer == closedList.end()) {
+				
+				// check if the targetnode of the connection is not in the openlist
+				std::list<Node*>::iterator oiter = std::find(openList.begin(), openList.end(), e->GetNodeB());
+				if (oiter == openList.end()) {
+					// set g-score of targetnode to infinity
+					e->GetNodeB()->SetGScore(INFINITY);
+					// set parent of targetnode to nullptr
+					e->GetNodeB()->SetParent(nullptr);
+				}
+				
+				/*** update vertex ***/
+
+				// let gcost be the gscore of targetnode
+				float gTargetNodeCost = e->GetNodeB()->GetGScore();
+				
+				/*** compute cost ***/
+
+				// any-angle paths, theta*
+				// if the target node is in the line of sight of the current node's parent
+				if (currentNode->GetParent() && LineOfSight(currentNode->GetParent(), e->GetNodeB())) {
+					// find the distance between the current node's parent and the target node
+					Vector2 targetDistance = e->GetNodeB()->GetPosition() - currentNode->GetParent()->GetPosition();
+					float length = targetDistance.magnitude();
+					// check if the current node's parent g-score combined with above distance is less than g-score of targetnode
+					if ((currentNode->GetParent()->GetGScore() + length) < gTargetNodeCost) {
+						// let parent of the current node be the parent of the targetnode
+						e->GetNodeB()->SetParent(currentNode->GetParent());
+						// set the g-score of the target node to g-score of the current node's parent combined with the distance between the length
+						e->GetNodeB()->SetGScore(currentNode->GetParent()->GetGScore() + length);
+					}
+				}
+				// otherwise,
+				else {
+					// check if g-score of currentnode combined with the cost of the currentedge connection is less than g-score of targetnode
+					if (currentNode->GetGScore() + e->GetCost() < gTargetNodeCost) {
+						// let currentnode be the parent of the targetnode
+						e->GetNodeB()->SetParent(currentNode);
+						// set the g-score of the targetnode to g-score of currentnode combined with other cost
+						e->GetNodeB()->SetGScore(currentNode->GetGScore() + e->GetCost());
+					}
+				}
+
+				/*** compute cost ***/
+
+				// check if g-score of the targetnode is less than gCost
+				if (e->GetNodeB()->GetGScore() < gTargetNodeCost) {
+					if (oiter != openList.end()) {
+						openList.remove(e->GetNodeB());
+					}
+					// calculate h-score
+					Vector2 hDistance = e->GetNodeB()->GetPosition() - endNode->GetPosition();
+					float hScore = hDistance.magnitude();
+					float cost = e->GetNodeB()->GetGScore() + hScore * 1.075f;
+					// set the gscore of the targetnode
+					e->GetNodeB()->SetFScore(cost);
+					// add the targetnode to the openlist
+					openList.push_back(e->GetNodeB());
+				}
+
+				/*** update vertex ***/
+			}
+		}
+	}
+
+	// let the currentpathnode be the endnode/goalnode
+	Node* currentPathNode = endNode;
+	// while currentpathnode is not empty
+	while (currentPathNode != nullptr) {
+		// push the currentpathnode to the path list
+		path.push_back(currentPathNode);
+		// get the parent of the current pathnode and assign it to the currentpathnode
+		currentPathNode = currentPathNode->GetParent();
+	}
+	// return the path
+	return path;
+}
+
+bool Graph::LineOfSight(Node * parentNode, Node * targetNode) {
+	// get the position of the parent node
+	float x0 = parentNode->GetPosition().m_x;
+	float y0 = parentNode->GetPosition().m_y;
+	// get the position of the target node
+	float x1 = targetNode->GetPosition().m_x;
+	float y1 = targetNode->GetPosition().m_y;
+	// x distance between the parent node and the target node
+	float dx = x1 - x0;
+	// y distance between the parent node and the target node
+	float dy = y1 - y0;
+
+	float sx = 0.0f;
+	float sy = 0.0f;
+
+	float f = 0;
+
+	// if the y-distance is negative
+	if (dy < 0.0f) {
+		// change y-distance to positive value
+		dy = -dy;
+		// move down in the negative direction
+		sy = -1.0f;
+	}
+	else {
+		// move up in the positive direction
+		sy = 1.0f;
+	}
+
+	// if the x-distance is negative
+	if (dx < 0.0f) {
+		// change the x-distance to negative value
+		dx = -dx;
+		// move left in the negative direction
+		sx = -1.0f;
+	}
+	else {
+		// move right in the positive direction
+		sx = 1.0f;
+	}
+
+	// x-distance is greater than or equal to y-distance
+	if (dx >= dy) {
+		// loop through to check if the target node is in sight
+		while (x0 != x1) {
+			f += dy;
+			if (f >= dx) {
+				y0 += sy;
+				f -= dx;
+			}
+			// the dy is zero, the target node is not in line of sight
+			if (dy == 0)
+				return false;
+
+			x0 += sx;
+		}
+	}
+	// x-distance is less than y-distance
+	else {
+		while (y0 != y1) {
+			f += dx;
+			if (f >= dy) {
+				x0 += sx;
+				f -= dy;
+			}
+			// the dx is zero, the target node is not in line of sight
+			if (dx == 0)
+				return false;
+
+			y0 += sy;
+		 }
+	}
+
+	return true;
+}
 
 Graph::~Graph()
 {
+	// Release all the nodes on the graph 
 	for (auto& node : nodes)
 	{
 		delete node;

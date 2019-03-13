@@ -20,7 +20,9 @@ public:
 	// PathFinding Algorithms
 	std::vector<Node*> DjikstraSearch(Node* startNode, Node* endNode);
 	std::vector<Node*> AStarSearch(Node* startNode, Node* endNode);
+	std::vector<Node*> AStarThetaStarSearch(Node* startNode, Node* endNode);
 	~Graph();
 private:
 	std::vector<Node*> nodes;
+	bool LineOfSight(Node* parentNode, Node* targetNode);
 };

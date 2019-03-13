@@ -1,27 +1,44 @@
 #include "PathFindDecision.h"
-
-
+#include "Node.h"
+#include "Agent.h"
 
 PathFindDecision::PathFindDecision()
 {
 }
 
-PathFindDecision::PathFindDecision(std::list<Node*> target)
+PathFindDecision::PathFindDecision(std::vector<Node*> target)
 {
+	// get the path
+	m_target = target;
 }
 
 void PathFindDecision::MakeDecision(Agent * agent, float deltaTime)
 {
-	// find the distance (targetDist) between agent's position and the target node position
+	if (!m_target.empty()) {
+		// grab the last node of the path
+		m_nextNode = m_target.back();
+		// find the distance (targetDist) between agent's position and the target node position
+		Vector2 targetDist = m_nextNode->GetPosition() - agent->position;
 
-	// normalize the distance (targetDist) and apply some speed
+		// find the length
+		float length = targetDist.magnitude();
 
-	// difference between the agent's velocity and the distance (targetDist)
+		// normalize the distance (targetDist) and apply some speed
+		targetDist.normalise();
+		targetDist = targetDist * 200.0f;
 
-	// Apply the force to the agent's position
+		// difference between the agent's velocity and the distance (targetDist)
+		Vector2 steeringForce = targetDist - agent->velocity;
 
-	// Check if the player has reached the target node
-		// switch to the next node
+		// Apply the force to the agent's position
+		agent->AddForce(steeringForce);
+
+		// Check if the player has reached the target node
+		if (length < 20.0f) {
+			// remove the last node when the agent is close to the node
+			m_target.pop_back();
+		}
+	}
 }
 
 

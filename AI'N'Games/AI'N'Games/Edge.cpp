@@ -12,7 +12,6 @@ Node * Edge::GetNodeB()
 
 void Edge::SetNodeB(Node * node)
 {
-	//node = new Node();
 	nodeB = node;
 }
 

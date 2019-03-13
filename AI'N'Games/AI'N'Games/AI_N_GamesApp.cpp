@@ -10,6 +10,7 @@
 #include "SeekDecision.h"
 #include "WanderDecision.h"
 #include "ObstacleAvoidance.h"
+#include "PathFindDecision.h"
 
 AI_N_GamesApp::AI_N_GamesApp() {
 
@@ -32,10 +33,10 @@ bool AI_N_GamesApp::startup() {
 	SetGraph();
 
 	// pathfinding using A*
-	Node* startNode = m_graph->GetNodes()[1];
-	Node* endNode = m_graph->GetNodes()[70];
+	Node* startNode = m_graph->GetNodes()[70];
+	Node* endNode = m_graph->GetNodes()[300];
 
-	std::vector<Node*> path = m_graph->AStarSearch(startNode, endNode);
+	std::vector<Node*> path = m_graph->AStarThetaStarSearch(startNode, endNode);
 
 	for (auto node : path)
 	{
@@ -51,9 +52,10 @@ bool AI_N_GamesApp::startup() {
 	//SeekDecision* seekDecision = new SeekDecision(ship);
 	WanderDecision* wanderDecision = new WanderDecision();
 	ObstacleAvoidance* obstacleAvoidDecision = new ObstacleAvoidance(ship, 50.0f);
+	PathFindDecision* pathFindDecision = new PathFindDecision(path);
 
 	rootNode->trueDecision = obstacleAvoidDecision;
-	rootNode->falseDecision = wanderDecision;
+	rootNode->falseDecision = pathFindDecision;
 
 	//withinAttackRange->CheckWithinRange(aiAgent, ship, 50.0f);
 	//withinAttackRange->trueDecision = attackDecision;
@@ -121,7 +123,7 @@ void AI_N_GamesApp::SetGraph()
 			// create a new node
 			Node* node = new Node();
 			// set the position of the node
-			node->SetPosition(Vector2(i * 32, j * 32));
+			node->SetPosition(Vector2(i * 64, j * 64));
 			// add the node to the graph
 			m_graph->AddNode(node);
 		}
@@ -138,7 +140,7 @@ void AI_N_GamesApp::SetGraph()
 			// find the length
 			float length = dist.magnitude();
 			// checking if the length is within the range
-			if (length <= 50.0f)
+			if (length <= 70.0f)
 				// connect nodes
 				m_graph->ConnectNode(a, b, length);
 		}
