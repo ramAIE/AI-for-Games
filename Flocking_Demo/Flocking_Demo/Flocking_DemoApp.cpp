@@ -79,10 +79,10 @@ bool Flocking_DemoApp::startup() {
 
 	// Add all the steering forces to the agent with weight
 	m_steeringBehaviour->addForce(seek, 1.0f);
-	m_steeringBehaviour->addForce(cohesion, 2.0f);
-	m_steeringBehaviour->addForce(alignment, 2.0f);
-	m_steeringBehaviour->addForce(separation, 3.5f);
-	m_steeringBehaviour->addForce(avoidance, 10.0f);
+	m_steeringBehaviour->addForce(cohesion, 9.0f);
+	m_steeringBehaviour->addForce(alignment, 20.0f);
+	m_steeringBehaviour->addForce(separation, 20.0f);
+	m_steeringBehaviour->addForce(avoidance, 50.0f);
 
 	// add the behaviour to all the AI agents
 	for (auto b : m_AIboids) {
@@ -131,7 +131,7 @@ void Flocking_DemoApp::draw() {
 	}
 	
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	m_2dRenderer->drawText(m_font, "Press LMB", 0, 0);
 	/*********************************/
 
 	// done drawing sprites

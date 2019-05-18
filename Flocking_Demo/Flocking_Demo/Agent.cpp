@@ -153,7 +153,7 @@ bool Agent::RotateHeadingtoFacePosition(Vector3 target, float deltaTime) {
 	// need to fix the rotation.
 	// rotates quite faster before it chooses the direction of the velocity.
 	if (angle > 0.001f) {
-		Matrix3 rotationMatrix = Matrix3::createRotation(angle * current.Sign(toTarget));
+		Matrix3 rotationMatrix = Matrix3::createRotation(angle * current.Sign(toTarget) * (500.0f * deltaTime));
 		m_local = m_local * rotationMatrix;
 		return false;
 	}

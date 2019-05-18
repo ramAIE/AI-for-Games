@@ -29,7 +29,7 @@ Vector3 SeekForce::getForce(Agent * agent) {
 	// normalize the desired velocity
 	desiredVelocity.normalise();
 	// apply some speed
-	desiredVelocity = desiredVelocity * 100.0f;
+	desiredVelocity = desiredVelocity * 200.0f;
 	// calculate the steering force
 	force = desiredVelocity - agent->GetVelocity();
 

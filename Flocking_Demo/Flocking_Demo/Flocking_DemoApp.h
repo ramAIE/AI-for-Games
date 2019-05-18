@@ -4,7 +4,7 @@
 #include "Renderer2D.h"
 #include <vector>
 
-#define _AGENTSIZE 100
+#define _AGENTSIZE 20
 #define _OBSTACLESIZE 10
 
 class Agent;
